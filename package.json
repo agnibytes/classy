@@ -1,0 +1,11 @@
+{
+  "name": "aaditya-tiwari-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio of Aaditya R. Tiwari - Computer Science Engineer & Developer",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Static site ready for Vercel deployment'"
+  },
+  "author": "Aaditya R. Tiwari",
+  "license": "ISC"
+}
