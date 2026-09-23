@@ -1,124 +1,69 @@
-const http = require('http');
-const fs = require('fs');
+const express = require('express');
 const path = require('path');
-const url = require('url');
 
-const PORT = process.env.PORT || 3000;
+const app = express();
 const ROOT = __dirname;
 
-const MIME_TYPES = {
-  '.html': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.mjs': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.gif': 'image/gif',
-  '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon',
-  '.avif': 'image/avif',
-  '.webp': 'image/webp',
-  '.woff': 'font/woff',
-  '.woff2': 'font/woff2',
-  '.ttf': 'font/ttf',
-  '.otf': 'font/otf',
-  '.mp4': 'video/mp4',
-  '.webm': 'video/webm',
-  '.wav': 'audio/wav',
-  '.mp3': 'audio/mpeg',
-  '.pdf': 'application/pdf',
+// ─── Static files ────────────────────────────────────────────────────────────
+// Serve everything in the project root as static files.
+// This covers: /assets/**, /site.config.js, /404.html, etc.
+app.use(
+  express.static(ROOT, {
+    // Never cache HTML pages so users always get fresh content
+    setHeaders(res, filePath) {
+      if (filePath.endsWith('.html')) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      } else if (
+        filePath.includes('/assets/js/') ||
+        filePath.includes('/assets/css/') ||
+        filePath.includes('/assets/fonts/')
+      ) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      } else if (filePath.includes('/assets/photos/') || filePath.includes('/assets/images/')) {
+        res.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
+      }
+      // CORS for fonts
+      if (filePath.includes('/assets/fonts/')) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+      }
+    },
+  })
+);
+
+// ─── Clean URL routing ────────────────────────────────────────────────────────
+// Map /work → /work/index.html, etc. with no redirect (direct serve)
+const ROUTES = {
+  '/work':    'work/index.html',
+  '/contact': 'contact/index.html',
+  '/archive': 'archive/index.html',
 };
 
-function sendFile(res, filePath, stat) {
-  const ext = path.extname(filePath).toLowerCase();
-  const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-  
-  res.writeHead(200, {
-    'Content-Type': contentType,
-    'Content-Length': stat.size,
-    'Access-Control-Allow-Origin': '*',
-    'Cache-Control': 'no-cache',
+Object.entries(ROUTES).forEach(([route, file]) => {
+  app.get(route, (_req, res) => {
+    res.sendFile(path.join(ROOT, file));
   });
-
-  const stream = fs.createReadStream(filePath);
-  stream.pipe(res);
-}
-
-function send404(res) {
-  const notFoundPath = path.join(ROOT, '404.html');
-  if (fs.existsSync(notFoundPath)) {
-    const stat = fs.statSync(notFoundPath);
-    res.writeHead(404, {
-      'Content-Type': 'text/html; charset=utf-8',
-      'Content-Length': stat.size,
-      'Access-Control-Allow-Origin': '*',
-    });
-    fs.createReadStream(notFoundPath).pipe(res);
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-    res.end('404 Not Found');
-  }
-}
-
-const server = http.createServer((req, res) => {
-  // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-      'Access-Control-Allow-Headers': '*',
-    });
-    res.end();
-    return;
-  }
-
-  const parsedUrl = url.parse(req.url);
-  let pathname = decodeURIComponent(parsedUrl.pathname);
-
-  // Normalize path and remove leading slash
-  let safePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
-  let fullPath = path.join(ROOT, safePath);
-
-  // Check direct file match
-  if (fs.existsSync(fullPath)) {
-    const stat = fs.statSync(fullPath);
-    if (stat.isFile()) {
-      return sendFile(res, fullPath, stat);
-    }
-    if (stat.isDirectory()) {
-      // Check index.html inside directory
-      const indexPath = path.join(fullPath, 'index.html');
-      if (fs.existsSync(indexPath)) {
-        return sendFile(res, indexPath, fs.statSync(indexPath));
-      }
-    }
-  }
-
-  // Check if adding .html finds a file (clean URLs like /work -> /work.html)
-  const htmlPath = fullPath + '.html';
-  if (fs.existsSync(htmlPath)) {
-    const stat = fs.statSync(htmlPath);
-    if (stat.isFile()) {
-      return sendFile(res, htmlPath, stat);
-    }
-  }
-
-  // Check if directory with index.html exists (e.g. /work -> /work/index.html)
-  const dirIndexPath = path.join(fullPath, 'index.html');
-  if (fs.existsSync(dirIndexPath)) {
-    const stat = fs.statSync(dirIndexPath);
-    if (stat.isFile()) {
-      return sendFile(res, dirIndexPath, stat);
-    }
-  }
-
-  // Not found
-  send404(res);
 });
 
-server.listen(PORT, () => {
-  console.log(`> bleibtgleich.dev local server running at:`);
-  console.log(`  http://localhost:${PORT}`);
+// /works/:slug → /works/:slug/index.html
+app.get('/works/:slug', (req, res, next) => {
+  const filePath = path.join(ROOT, 'works', req.params.slug, 'index.html');
+  res.sendFile(filePath, (err) => {
+    if (err) next(); // fall through to 404
+  });
 });
+
+// ─── 404 fallback ────────────────────────────────────────────────────────────
+app.use((_req, res) => {
+  res.status(404).sendFile(path.join(ROOT, '404.html'));
+});
+
+// ─── Start (local dev only — Vercel imports the app directly) ─────────────────
+const PORT = process.env.PORT || 3000;
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n  bleibtgleich.dev running at:`);
+    console.log(`  http://localhost:${PORT}\n`);
+  });
+}
+
+module.exports = app;

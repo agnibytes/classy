@@ -1,26 +1,58 @@
 # Vercel Deployment Ignore List
-node_modules
+
+# Git internals
 .git
 .gitignore
+
+# Editor configs
 .vscode
 .idea
 .agents
 
-# Python scraper scripts & artifacts
+# Dev scripts (not needed on server)
 build_clone.py
-__pycache__/
-*.py[cod]
 scratch/
+__pycache__/
+*.py
+*.py[cod]
 
-# Unused large video recordings
-*.mp4
-*.mkv
-*.mov
-
-# Logs & temp files
+# Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# OS files
 .DS_Store
 Thumbs.db
+
+# Large video files (not referenced)
+VID_20250919_181559.mp4
+*.mkv
+*.mov
+
+# Raw/original large photos in root (not used by site)
+IMG_20250224_161552.jpg
+IMG_20250224_181131.jpg
+IMG_20250224_181951.jpg
+IMG_20250228_125220.jpg
+IMG_20250228_132242.jpg
+IMG_20250228_132310.jpg
+IMG_20250228_132317.jpg
+IMG_20250228_153129.jpg
+IMG_20250320_132609.jpg
+IMG_20250320_180418.jpg
+IMG_20250824_083228.jpg
+IMG_20251208_130944.jpg
+IMG_20260313_173422_1.jpg
+IMG_20260709_110337.jpg
+WhatsApp Image 2026-09-17 at 7.40.29 AM.jpeg
+WhatsApp Image 2026-09-23 at 6.45.27 PM.jpeg
+WhatsApp Image 2026-09-23 at 6.45.28 PM.jpeg
+WhatsApp Image 2026-09-23 at 6.45.29 PM.jpeg
+WhatsApp Image 2026-09-23 at d6.45.29 PM.jpeg
+WhatsApp Image 2026-09-23 sat 6.45.28 PM.jpeg
+WhatsApp Video 2026-09-23 at 6.45.05 PM.mp4
+da.jpeg
+ffe.jpeg
+videoframe_135362.png
