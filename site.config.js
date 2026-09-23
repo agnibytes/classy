@@ -69,7 +69,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Debate & Public Speaking (Runner-Up)",
       year: "2025",
       link: "#",
-      cover: "/assets/photos/student-parliament-runner-up.jpg"
+      cover: "/assets/photos/student-parliament-runner-up.webp"
     },
     {
       slug: "buzzer-quiz",
@@ -77,7 +77,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Technical Competition - 2nd Prize Winner",
       year: "2025",
       link: "#",
-      cover: "/assets/photos/buzzer-quiz-2nd-prize.jpg"
+      cover: "/assets/photos/buzzer-quiz-2nd-prize.webp"
     },
     {
       slug: "hackathon-code",
@@ -85,7 +85,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Hackathon & Software Development",
       year: "2025",
       link: "#",
-      cover: "/assets/photos/hackathon-code.jpg"
+      cover: "/assets/photos/hackathon-code.webp"
     },
     {
       slug: "parliament-keynote",
@@ -93,7 +93,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Keynote & Parliamentary Address",
       year: "2025",
       link: "#",
-      cover: "/assets/photos/student-parliament-speaker.png"
+      cover: "/assets/photos/student-parliament-speaker.webp"
     },
     {
       slug: "picsell-cse",
@@ -101,7 +101,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Dept of Computer Science & Engineering",
       year: "2025",
       link: "#",
-      cover: "/assets/photos/parliament-team.jpg"
+      cover: "/assets/photos/parliament-team.webp"
     },
     {
       slug: "kdkce-campus",
@@ -109,7 +109,7 @@ window.PORTFOLIO_CONFIG = {
       category: "KDKCE Engineering",
       year: "2024",
       link: "#",
-      cover: "/assets/photos/college-campus-1.jpg"
+      cover: "/assets/photos/college-campus-1.webp"
     },
     {
       slug: "parliament-award",
@@ -117,7 +117,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Leadership & Governance",
       year: "2025",
       link: "#",
-      cover: "/assets/photos/award-stage.jpg"
+      cover: "/assets/photos/award-stage.webp"
     },
     {
       slug: "parliament-hall",
@@ -125,7 +125,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Student Forum & Public Discourse",
       year: "2025",
       link: "#",
-      cover: "/assets/photos/parliament-hall.jpg"
+      cover: "/assets/photos/parliament-hall.webp"
     },
     {
       slug: "tech-collaboration",
@@ -133,7 +133,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Tech Events & Coordination",
       year: "2024",
       link: "#",
-      cover: "/assets/photos/aaditya-event-1.jpg"
+      cover: "/assets/photos/aaditya-event-1.webp"
     },
     {
       slug: "engineering-symposium",
@@ -141,7 +141,7 @@ window.PORTFOLIO_CONFIG = {
       category: "Computer Science Symposia",
       year: "2024",
       link: "#",
-      cover: "/assets/photos/aaditya-portrait.jpg"
+      cover: "/assets/photos/aaditya-portrait.webp"
     }
   ]
 };
