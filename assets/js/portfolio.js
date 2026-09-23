@@ -30,3 +30,34 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Dedicated Theme Menu Button (Item 5) Interaction
+document.addEventListener('click', (e) => {
+  // If clicked on theme-switch container but outside the inner circle
+  const switchBox = e.target.closest('.menu-theme-grid .theme-switch');
+  if (switchBox && !e.target.hasAttribute('data-theme-mode')) {
+    e.stopPropagation();
+    const inner = switchBox.querySelector('[data-theme-mode]');
+    if (inner) inner.click();
+    return;
+  }
+
+  // If clicked on Theme header row, cycle through the 5 themes
+  const cycleHeader = e.target.closest('[data-theme-cycle]');
+  if (cycleHeader && !e.target.closest('.menu-theme-panel')) {
+    e.preventDefault();
+    e.stopPropagation();
+    const modes = ['base', '3', '2', '1', '4'];
+    let current = 'base';
+    try {
+      current = sessionStorage.getItem('theme-mode') || 'base';
+    } catch (err) {}
+    const nextIdx = (modes.indexOf(current) + 1) % modes.length;
+    const nextMode = modes[nextIdx];
+    const targetBtn = document.querySelector(`.menu-theme-grid [data-theme-mode="${nextMode}"]`);
+    if (targetBtn) {
+      targetBtn.click();
+    }
+  }
+});
+
