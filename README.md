@@ -95,3 +95,13 @@ All personalization settings are controlled from **[`site.config.js`](file:///e:
 - `profile.email`: Contact email address
 - `socials`: LinkedIn, GitHub, Instagram links
 - `works`: Showcase cards, milestones & competitions
+
+## 👩‍💻 Girl Who Code
+
+<p align="center">
+  <a href="https://girlswhocode.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Girl%20Who%20Code-Community-FF69B4?style=for-the-badge&logo=github" alt="Girl Who Code"/>
+  </a>
+</p>
+
+I’m an active member of **Girl Who Code**, mentoring newcomers, speaking at webinars, and contributing to open‑source projects that promote diversity in tech.
