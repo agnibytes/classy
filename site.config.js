@@ -37,18 +37,18 @@ window.PORTFOLIO_CONFIG = {
   socials: [
     {
       platform: "LinkedIn",
-      url: "https://www.linkedin.com/in/aaditya-tiwari/",
+      url: "https://www.linkedin.com/in/aaditya-tiwari-2b1996333/",
       icon: "linkedin"
     },
     {
-      platform: "GitHub",
-      url: "https://github.com/aadityatiwari",
-      icon: "github"
+      platform: "WhatsApp",
+      url: "https://api.whatsapp.com/send/?phone=919404311453&text=I+came+from+your+website+-&type=phone_number&app_absent=0",
+      icon: "whatsapp"
     },
     {
-      platform: "Instagram",
-      url: "https://www.instagram.com/aaditya.tiwari/",
-      icon: "instagram"
+      platform: "Snapchat",
+      url: "https://www.snapchat.com/@aaditiwari_24",
+      icon: "snapchat"
     }
   ],
 

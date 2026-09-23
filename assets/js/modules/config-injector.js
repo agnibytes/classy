@@ -73,7 +73,7 @@ export function applyPortfolioConfig(container = document) {
 
   // 7. Update Contact Email Links
   if (profile.email) {
-    const emailLinks = container.querySelectorAll('a[href*="mailto:"], a[href*="hi.bleibtgleich@gmail.com"]');
+    const emailLinks = container.querySelectorAll('a[href*="mailto:"], a[href*="tiwariaaditya@gmail.com"]');
     emailLinks.forEach(link => {
       const subject = encodeURIComponent(profile.emailSubject || '[Project Inquiry] Hello!');
       link.href = `mailto:${profile.email}?subject=${subject}`;
